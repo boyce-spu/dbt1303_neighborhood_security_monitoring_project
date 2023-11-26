@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/report-incident.css' %}">
+    <title>Report Incident</title>
+</head>
+<body>
+    {% include 'header.html' %}
+     <div class="row">
+        <div class="col-md-12">
+            <form method="post" action="{% url 'report-incident' %}">
+                {% csrf_token %}
+                <h1>SecureStreet - Report Incident</h1>
+                
+                <fieldset>
+                    <legend>Incident Info</legend>
+                    
+                    {{ form.title.label_tag }}
+                    {{ form.title }}
+
+                    {{ form.description.label_tag }}
+                    {{ form.description }}
+                    
+                    {{ form.location.label_tag }}
+                    {{ form.location }}
+                </fieldset>
+
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}> {{ message }} </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                
+                <button type="submit">Report Incident</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

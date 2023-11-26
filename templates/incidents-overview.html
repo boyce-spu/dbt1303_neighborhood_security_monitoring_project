@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="incidents-overview">
+    {% for incident in incidents %}
+        <div class="incident">
+            <div class="incident-icon">
+                <i class="bx bxs-report"></i>
+            </div>
+            
+            <div class="incident-info">
+                <div class="title">{{ incident.title }}</div>
+                <p class="description">{{ incident.description }}</p>
+                <div class="reporter">{{ incident.reporter.username }}</div>
+                
+                <div class="meta">
+                    <div class="location">{{ incident.location }}</div>
+                    <div class="time">{{ incident.time|date:"g:iA n/j/Y" }}</div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+</body>
+</html>

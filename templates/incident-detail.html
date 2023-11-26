@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/incident-detail.css' %}">
+    <title>SecureStreet - {{ incident.title }}</title>
+</head>
+<body>
+    {% include 'header.html' %}
+    
+    <div class="incident-container">
+        <div class="icon">
+            <i class="bx bxs-report"></i>
+        </div>
+
+        <div class="incident-info">
+            <h1>{{ incident.title }}</h1>
+            <p>{{ incident.description }}</p>
+            <div class="reporter">{{ incident.user.username }}</div>
+
+            <div class="meta">
+                <div class="location">{{ incident.location }}</div>
+                <div class="time">{{ incident.created_at|date:"g:iA n/j/Y" }}</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="comments">
+        <h2>Comments</h2>
+        <!-- Check if there are comments and loop through them if they exist -->
+        {% if comments %}
+            {% for comment in comments %}
+                <div class="comment">
+                    <div class="comment-info">
+                        <div class="commenter">{{ comment.user.username }}</div>
+                        <div class="time">{{ comment.created_at|date:"g:iA n/j/Y" }}</div>
+                    </div>
+                    <div class="comment-text">{{ comment.text }}</div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>There are no comments yet.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

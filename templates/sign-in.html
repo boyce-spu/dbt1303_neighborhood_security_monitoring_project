@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureStreet - Sign In</title>
+    <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sign-in.css' %}">
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-12">
+            <form method="post" action="{% url 'sign-in' %}">
+                {% csrf_token %}
+                <h1>Sign In</h1>
+                
+                <fieldset>
+                    <legend>Sign in to your account</legend>
+                    
+                    {{ form.username.label_tag }}
+                    {{ form.username }}
+                    
+                    {{ form.password.label_tag }}
+                    {{ form.password }}
+                </fieldset>
+                
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}> {{ message }} </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                
+                <button type="submit">Sign In</button>
+
+            </form>
+        </div>
+        <div class="redirect">
+            <span>Don't have an account?</span>
+            <a href="{% url 'sign-up' %}" class="get-started">Get Started</a>
+        </div>
+    </div>
+
+    <script src="{% static 'js/form_submit.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <title>SecureStreet - Home</title>
+</head>
+<body>
+    {% include 'header.html' %}
+    <div class="home-content">
+        
+        <div class="user-meta">
+            <div class="user-image">
+                <i class="bx bx-user"></i>
+                <div>Welcome <br /> <div class="username">{{ user.username }}</div></div>
+            </div>
+            
+            {% if user.is_authenticated %}
+            <div class="user-info">
+                <div>
+                    {% if user.first_name %} {{ user.first_name }} {% endif %}
+                    {% if user.last_name %} {{ user.last_name }} {% endif %}
+                </div>
+                <div>{{ user.email }}</div>
+            </div>
+            <a href="{% url 'report-incident' %}" class="report-incident">Report Incident</a>
+            {% else %}
+            <div class="user-info">
+                <h1>Not Signed In</h1>
+                <p>Sign in to view your profile</p>
+            </div>
+            {% endif %}
+        </div>
+        
+        <div class="ad-space">Ads</div>
+        
+        <div class="incidents-overview-title">Latest Incidents</div>
+        
+        <div class="incidents-overview">
+            {% for incident in incidents %}
+            <a href="{% url 'incident_detail' incident_id=incident.id %}" class="incident">
+                <div class="incident-icon">
+                    <i class="bx bxs-report"></i>
+                </div>
+                
+                <div class="incident-info">
+                    <div class="title">{{ incident.title }}</div>
+                    <p class="description">{{ incident.description }}</p>
+                    <div class="reporter">{{ incident.user.username }}</div>
+                    
+                    <div class="meta">
+                        <div class="location">{{ incident.location }}</div>
+                        <div class="time">{{ incident.created_at|date:"g:iA n/j/Y" }}</div>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+</head>
+<body>
+    <div class="header">
+        <a href="{% url 'home' %}">SecureStreet</a>
+        <div class="user-icon" id="ham-menu">
+            <i class="bx bx-user"></i>
+        </div>
+
+        <div class="menu hidden" id="menu">
+            <div class="link">Profile</div>
+            <div class="link">Settings</div>
+            <div class="link" id="sign_out">Log Out</div>
+        </div>
+    </div>
+
+    <script>
+        const hamMenu = document.getElementById('ham-menu');
+        const menu = document.getElementById('menu');
+        const sign_out_btn = document.getElementById('sign_out');
+
+        hamMenu.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        window.addEventListener('click', (e) => {
+            if (!hamMenu.contains(e.target) && !menu.contains(e.target)) {
+                menu.classList.add('hidden');
+            }
+        });
+
+        // Close menu when window is scrolled
+        window.addEventListener('scroll', () => {
+            menu.classList.add('hidden');
+        });
+
+        // Call logout view when logout button is clicked
+        sign_out_btn.addEventListener('click', () => {
+            window.location.href = "{% url 'sign-out' %}";
+        });
+
+    </script>
+</body>
+</html>
